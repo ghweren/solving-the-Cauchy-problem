@@ -64,6 +64,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CauchySolving.cpp" />
+    <ClCompile Include="Main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ELE.h" />
+    <ClInclude Include="SolvingMethod.h" />
+    <ClInclude Include="Runge-Kutta_3rd.h" />
+    <ClInclude Include="CauchySolving.h" />
+    <ClInclude Include="Runge-Kutta_4th.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
