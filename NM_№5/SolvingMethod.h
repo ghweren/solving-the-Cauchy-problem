@@ -1,7 +1,6 @@
-//#include "Runge-Kutta_3rd.h"
-//#include "Runge-Kutta_4th.h"
-class SolvingMethod
+#pragma once
+class SolvingMethod abstract
 {
 public:
-	virtual double Calculation()=0;
+	virtual double Calculation(double Y0, double X0, double h, double(*function)(double, double)) const = 0;
 };
