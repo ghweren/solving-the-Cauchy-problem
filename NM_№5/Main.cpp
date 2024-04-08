@@ -5,12 +5,24 @@
 #include "Runge-Kutta_3rd.h"
 #include "Runge-Kutta_4th.h"
 #define PI 3.14159265 
+/**
+ @brief The function f(x,y), which is used in the Cauchy problem y'=f(x,y)
+ @param x The variable of the function f(x,y)
+ @param y The variable of the function f(x,y)
+*/
 double function(double x, double y)
 {
 
-	return 2*x+y-x*x;
-	//return x*x - sin((2 * x)*PI/180);
+	return x*x - sin((2 * x)*PI/180);
 }
+/**
+@param eps The maximum absolute error value in modulus
+@param Hmin The minimum step value for calculating the next value of y'
+@param A The value of the beginning of the segment
+@param B The value of the end of the segment
+@param Yc The y value at the starting point
+@param C The starting point, which should be A or B
+*/
 double eps, Hmin, A, B, Yc, C;
 using namespace std;
 int main()

@@ -123,14 +123,12 @@ vector<vector<double>> CauchySolving::Solving(double A, double B, double C, doub
 			estimationResult = estimationMethod->Calculation(solvingResult, A+Hmin,Hmin, function);
 			solvingResult = solvingMethod->Calculation(solvingResult, A + Hmin, Hmin, function);
 			result.push_back({ A, solvingResult, abs(solvingResult - estimationResult) });
-			std::cout << "1";
 		}
 		else if (current_point-A <= 1.5*Hmin)
 		{
 			solvingResult = solvingMethod->Calculation(prev_solvingResult, prev_point, -(prev_point-A) , function);
 			estimationResult = estimationMethod->Calculation(prev_solvingResult, prev_point, -(prev_point - A), function);
 			result.push_back({ A, solvingResult, abs(solvingResult - estimationResult) });
-			std::cout << "2";
 		}
 		else
 		{
@@ -140,7 +138,6 @@ vector<vector<double>> CauchySolving::Solving(double A, double B, double C, doub
 			estimationResult = estimationMethod->Calculation(solvingResult, A + (prev_point - A) / 2, -((prev_point - A) / 2), function);
 			solvingResult = solvingMethod->Calculation(solvingResult, A + (prev_point - A) / 2, -((prev_point - A) / 2), function);
 			result.push_back({ A, solvingResult, abs(solvingResult - estimationResult) });
-			std::cout << "3";
 		}
 	}
 	return result;
