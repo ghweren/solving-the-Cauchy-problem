@@ -36,7 +36,7 @@ public:
 	@param Yc The y value at the starting point
 	@param C The starting point, which should be A or B
 	*/
-	vector<vector<double>> Solving(double A,double B, double C, double Yc,double Hmin,double eps);
+	vector<vector<double>> Solving(double A,double B, double C, double Yc,double Hmin,double eps,size_t order);
 
 
 };

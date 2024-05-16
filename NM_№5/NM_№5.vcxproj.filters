@@ -29,9 +29,6 @@
     <ClInclude Include="Runge-Kutta_4th.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="ELE.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
     <ClInclude Include="CauchySolving.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>

@@ -1,8 +1,9 @@
 #include "CauchySolving.h"
 #include <iostream>
 
-vector<vector<double>> CauchySolving::Solving(double A, double B, double C, double Yc, double Hmin, double eps)
+vector<vector<double>> CauchySolving::Solving(double A, double B, double C, double Yc, double Hmin, double eps, size_t order)
 {
+	order = pow(2, order) - 1;
 	vector<vector<double>> result;
 	HminNum = 0;
 	if (A >= B || Hmin <= 0 || eps <= 0|| (C!=A&&C!=B))
@@ -20,7 +21,10 @@ vector<vector<double>> CauchySolving::Solving(double A, double B, double C, doub
 		while (B - (current_point + h) >= Hmin)
 		{
 			solvingResult = solvingMethod->Calculation(prev_solvingResult,prev_point,h,function);
-			estimationResult = estimationMethod->Calculation(prev_solvingResult, prev_point, h, function);
+			estimationResult = estimationMethod->Calculation(prev_solvingResult, prev_point, h/2, function);
+			prev_point += h / 2;
+			estimationResult = estimationMethod->Calculation(estimationResult, prev_point, h / 2, function);
+			prev_point -= h / 2;
 			while (abs(solvingResult - estimationResult) > eps&&h != Hmin)
 			{
 				if (h / 2 <= Hmin)
@@ -36,7 +40,10 @@ vector<vector<double>> CauchySolving::Solving(double A, double B, double C, doub
 					h /= 2;
 					current_point -= h;
 					solvingResult = solvingMethod->Calculation(prev_solvingResult, prev_point, h, function);
-					estimationResult = estimationMethod->Calculation(prev_solvingResult, prev_point, h, function);
+					estimationResult = estimationMethod->Calculation(prev_solvingResult, prev_point, h/2, function);
+					prev_point += h / 2;
+					estimationResult = estimationMethod->Calculation(estimationResult, prev_point, h/2, function);
+					prev_point -= h / 2;
 				}
 			}
 			if (abs(solvingResult - estimationResult) > eps)
@@ -65,11 +72,13 @@ vector<vector<double>> CauchySolving::Solving(double A, double B, double C, doub
 		}
 		else
 		{
-			solvingResult = solvingMethod->Calculation(prev_solvingResult, prev_point, (B - prev_point) / 2, function);
-			estimationResult = estimationMethod->Calculation(prev_solvingResult, prev_point, (B - prev_point) / 2, function);
-			result.push_back({ current_point+(B-current_point)/2, solvingResult, abs(solvingResult - estimationResult) });
-			estimationResult = estimationMethod->Calculation(solvingResult, prev_point + (B - prev_point) / 2, (B - prev_point) / 2, function);
-			solvingResult = solvingMethod->Calculation(solvingResult, prev_point + (B - prev_point) / 2, (B - prev_point) / 2, function);
+			current_point += (B - current_point) / 2;
+			solvingResult = solvingMethod->Calculation(prev_solvingResult, prev_point, current_point - prev_point, function);
+			estimationResult = estimationMethod->Calculation(prev_solvingResult, prev_point, current_point-prev_point, function);
+			result.push_back({ current_point, solvingResult, abs(solvingResult - estimationResult) });
+			prev_point = current_point;
+			estimationResult = estimationMethod->Calculation(solvingResult, prev_point, B-prev_point, function);
+			solvingResult = solvingMethod->Calculation(solvingResult, prev_point,B - prev_point, function);
 			result.push_back({ B, solvingResult, abs(solvingResult - estimationResult) });
 		}
 	}
@@ -86,7 +95,10 @@ vector<vector<double>> CauchySolving::Solving(double A, double B, double C, doub
 		while ((current_point + h)-A >= Hmin)
 		{
 			solvingResult = solvingMethod->Calculation(prev_solvingResult, prev_point, -h, function);
-			estimationResult = estimationMethod->Calculation(prev_solvingResult, prev_point, -h, function);
+			estimationResult = estimationMethod->Calculation(prev_solvingResult, prev_point, -h/2, function);
+			prev_point -= h / 2;
+			estimationResult = estimationMethod->Calculation(estimationResult, prev_point, -h / 2, function);
+			prev_point += h / 2;
 			while (abs(solvingResult - estimationResult)>eps&&h != Hmin)
 			{
 				if (h / 2 <= Hmin)
@@ -102,7 +114,10 @@ vector<vector<double>> CauchySolving::Solving(double A, double B, double C, doub
 					h /= 2;
 					current_point += h;
 					solvingResult = solvingMethod->Calculation(prev_solvingResult, prev_point, -h, function);
-					estimationResult = estimationMethod->Calculation(prev_solvingResult, prev_point, -h, function);
+					estimationResult = estimationMethod->Calculation(prev_solvingResult, prev_point, -h/2, function);
+					prev_point -= h / 2;
+					estimationResult = estimationMethod->Calculation(estimationResult, prev_point, -h / 2, function);
+					prev_point += h / 2;
 				}
 			}
 			if (abs(solvingResult - estimationResult) > eps)

@@ -13,7 +13,7 @@
 double function(double x, double y)
 {
 
-	return x*x - sin((2 * x)*PI/180);
+	return x*x;// - sin((2 * x)*PI/180);
 }
 /**
 @param eps The maximum absolute error value in modulus
@@ -40,7 +40,7 @@ int main()
 	cout << "Enter the Yc\n";
 	cin >> Yc;
 	try{
-		vector<vector<double>> result = (new CauchySolving(new Runge_Kutta_3rd,new Runge_Kutta_4th,function))->Solving(A,B,C,Yc,Hmin,eps);
+		vector<vector<double>> result = (new CauchySolving(new Runge_Kutta_3rd,new Runge_Kutta_4th,function))->Solving(A,B,C,Yc,Hmin,eps,4);
 		for (int i = 0; i < result.size(); i++)
 		{
 			cout << result[i][0]<<"   ";
