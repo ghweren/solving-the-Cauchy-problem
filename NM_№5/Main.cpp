@@ -4,6 +4,7 @@
 #include "CauchySolving.h"
 #include "Runge-Kutta_3rd.h"
 #include "Runge-Kutta_4th.h"
+#include "Runge-Kutta_3rd_112.h"
 #define PI 3.14159265 
 /**
  @brief The function f(x,y), which is used in the Cauchy problem y'=f(x,y)
@@ -40,7 +41,7 @@ int main()
 	cout << "Enter the Yc\n";
 	cin >> Yc;
 	try{
-		vector<vector<double>> result = (new CauchySolving(new Runge_Kutta_3rd,new Runge_Kutta_4th,function))->Solving(A,B,C,Yc,Hmin,eps,4);
+		vector<vector<double>> result = (new CauchySolving(new Runge_Kutta_3rd_112,new Runge_Kutta_3rd_112,function))->Solving(A,B,C,Yc,Hmin,eps,4);
 		for (int i = 0; i < result.size(); i++)
 		{
 			cout << result[i][0]<<"   ";
